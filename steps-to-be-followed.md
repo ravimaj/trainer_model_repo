@@ -65,8 +65,23 @@
    curl -X POST http://localhost:5000/predict -H "Content-Type: application/json" -d '{"rooms": 2, "area": 5000}'
    ```
 
+# For Kubernetes Deployments
+$ kind version
+$ kind get clusters
+$ kind create cluster --name main-k8s-cluster
+$ kubectl version
+$ kubectl get pods
+$ kubectl get nodes -o wide
+$ kubectl get deployments
+$ kubectl get services
+
+# To create Pods/Deployments/Services
+$ kubectl apply -f manifests
+$ kubectl port-forward svc/kumarns-mlapp-service 7000:6000
+
+
 # USE JENKINS
-- Create Job
+- Create Job2
  - Task1:
     $ python model.py
   - $ aws s3 cp model/rental_prediction_model.pkl s3://<bucket-name>>/model/rental_prediction_model.pkl 
@@ -74,3 +89,11 @@
  - Task2:
    $ docker build . -t <<dockerhub-name>>/<<registry-name>>  
    $ docker push <<dockerhub-name>>/<<registry-name>>:latest
+
+# USE JENKINS
+- Create Job2
+ - Task1:
+    $ kubectl delete -f manifests/
+
+ - Task2:
+    $ kubectl apply -f manifests/
